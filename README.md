@@ -74,13 +74,13 @@ export class HomeComponent implements OnInit {
 
   public ngOnInit(): void {
     this.cacheRouteReuse
-      .onAttach(RouteOneComponent)
+      .onAttach(HomeComponent)
       .subscribe(component => {
         // your code...
       });
 
     this.cacheRouteReuse
-      .onDetach(RouteOneComponent)
+      .onDetach(HomeComponent)
       .subscribe(component => {
         // your code...
       });
