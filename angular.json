@@ -2,5 +2,46 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1, 
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ng-cache-route-reuse": {
+      "projectType": "library",
+      "root": "projects/ng-cache-route-reuse",
+      "sourceRoot": "projects/ng-cache-route-reuse/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-cache-route-reuse/tsconfig.lib.json",
+            "project": "projects/ng-cache-route-reuse/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-cache-route-reuse/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-cache-route-reuse/src/test.ts",
+            "tsConfig": "projects/ng-cache-route-reuse/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-cache-route-reuse/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-cache-route-reuse/tsconfig.lib.json",
+              "projects/ng-cache-route-reuse/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "ng-cache-route-reuse"
 }

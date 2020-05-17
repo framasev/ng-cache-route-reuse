@@ -17,7 +17,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-cache-route-reuse": [
+        "dist/ng-cache-route-reuse/ng-cache-route-reuse",
+        "dist/ng-cache-route-reuse"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
