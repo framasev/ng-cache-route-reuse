@@ -1,24 +1,91 @@
-# NgCacheRouteReuse
+# Angular Cache Route Reuse Strategy
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
+A simple route reuse strategy for angular with attach/detach hooks.
 
-## Code scaffolding
+## Getting Started
+Installation:
 
-Run `ng generate component component-name --project ng-cache-route-reuse` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-cache-route-reuse`.
-> Note: Don't forget to add `--project ng-cache-route-reuse` or else it will be added to the default project in your `angular.json` file. 
+`npm install ng-cache-route-reuse --save`
 
-## Build
+Import **`NgCacheRouteReuseModule`** into `AppModule`:
+```typescript
+import { NgCacheRouteReuseModule } from 'ng-cache-route-reuse';
+    
+@NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgCacheRouteReuseModule,
+    ...
+})
+export class AppModule { }
+```
 
-Run `ng build ng-cache-route-reuse` to build the project. The build artifacts will be stored in the `dist/` directory.
+Set **`reuse:true`** in route's data to enable route reuse:
+```typescript
+const routes: Routes = [
+  ...
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: {
+      reuse: true
+    },
+  },
+  ...
+];
+```
 
-## Publishing
+## Attach/Detach Hooks
+You can use hooks for performing additional subscribe/unsubscribe functionality:
 
-After building your library with `ng build ng-cache-route-reuse`, go to the dist folder `cd dist/ng-cache-route-reuse` and run `npm publish`.
+### Use with Decorators
 
-## Running unit tests
+```typescript
+import { onAttach, onDetach } from 'ng-cache-route-reuse';
 
-Run `ng test ng-cache-route-reuse` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({})
+export class DemoComponent {
 
-## Further help
+  @onAttach()
+  public onAttach(): void {
+    // your code...
+  }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  @onDetach()
+  public onDetach(): void {
+    // your code...
+  }
+
+}
+```
+
+### Use with Service
+
+```typescript
+import { NgCacheRouteReuseService } from 'ng-cache-route-reuse';
+
+@Component({})
+export class HomeComponent implements OnInit {
+
+  constructor(
+    private cacheRouteReuse: NgCacheRouteReuseService
+  ) { }
+
+  public ngOnInit(): void {
+    this.cacheRouteReuse
+      .onAttach(HomeComponent)
+      .subscribe(component => {
+        // your code...
+      });
+
+    this.cacheRouteReuse
+      .onDetach(HomeComponent)
+      .subscribe(component => {
+        // your code...
+      });
+  }
+
+}
+
+```
