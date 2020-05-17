@@ -3,5 +3,5 @@
  */
 
 export * from './lib/ng-cache-route-reuse.service';
-export * from './lib/ng-cache-route-reuse.component';
+export * from './lib/ng-cache-route-reuse.decorators';
 export * from './lib/ng-cache-route-reuse.module';
