@@ -8,7 +8,10 @@ import { RouteTwoComponent } from './route-two/route-two.component';
 const routes: Routes = [
   {
     path: 'one',
-    component: RouteOneComponent
+    component: RouteOneComponent,
+    data: {
+      reuse: true
+    }
   },
   {
     path: 'two',
