@@ -5,7 +5,7 @@ import { RouteOneComponent } from './route-one/route-one.component';
 import { RouteTwoComponent } from './route-two/route-two.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'one',
     component: RouteOneComponent,
