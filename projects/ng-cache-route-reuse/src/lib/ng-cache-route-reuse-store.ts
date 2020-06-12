@@ -40,4 +40,8 @@ export class NgCacheRouteReuseStore {
     return this.store.has(component);
   }
 
+  public clear(): void {
+    this.store.clear();
+  }
+
 }
