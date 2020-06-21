@@ -1,6 +1,6 @@
 # Angular Cache Route Reuse Strategy
 
-A simple route reuse strategy for angular with attach/detach hooks.
+A simple angular route reuse strategy with attach/detach hooks.
 
 ## Getting Started
 Installation:
