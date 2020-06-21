@@ -1,6 +1,6 @@
 {
   "name": "ng-cache-route-reuse",
-  "description": "A simple route reuse strategy for angular with attach/detach hooks.",
+  "description": "A simple angular route reuse strategy with attach/detach hooks.",
   "author": "Stas Amasev",
   "repository": {
     "type": "git",
@@ -9,6 +9,7 @@
   "homepage": "https://github.com/framasev/ng-cache-route-reuse",
   "keywords": [
     "angular",
+    "angular route reuse strategy",
     "route reuse strategy"
   ],
   "license": "MIT",
