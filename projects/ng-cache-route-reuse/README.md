@@ -3,7 +3,7 @@
 A simple angular route reuse strategy with attach/detach hooks.
 
 ## Getting Started
-Installation:
+**Installation:**
 
 `npm install ng-cache-route-reuse --save`
 
@@ -45,7 +45,7 @@ You can use hooks for performing additional subscribe/unsubscribe functionality:
 import { onAttach, onDetach } from 'ng-cache-route-reuse';
 
 @Component({})
-export class DemoComponent {
+export class HomeComponent {
 
   @onAttach()
   public onAttach(): void {
