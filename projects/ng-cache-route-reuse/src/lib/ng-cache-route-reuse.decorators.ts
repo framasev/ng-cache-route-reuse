@@ -3,6 +3,7 @@ import { NgCacheRouteReuseStore } from './ng-cache-route-reuse-store';
 import { filter } from 'rxjs/operators';
 
 export function onAttach() {
+  // tslint:disable-next-line: only-arrow-functions
   return function(
     target: any,
     propertyKey: string
@@ -16,6 +17,7 @@ export function onAttach() {
 }
 
 export function onDetach() {
+  // tslint:disable-next-line: only-arrow-functions
   return function(
     target: any,
     propertyKey: string

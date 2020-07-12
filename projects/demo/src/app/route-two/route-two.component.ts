@@ -10,10 +10,12 @@ export class RouteTwoComponent implements OnInit, OnDestroy {
   constructor() { }
 
   public ngOnInit(): void {
+    // tslint:disable-next-line: no-console
     console.debug('RouteTwoComponent', 'inited');
   }
 
   public ngOnDestroy(): void {
+    // tslint:disable-next-line: no-console
     console.debug('RouteTwoComponent', 'destroyed');
   }
 

@@ -10,10 +10,12 @@ export class LazyRouteTwoComponent implements OnInit, OnDestroy {
   constructor() { }
 
   public ngOnInit(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteTwoComponent', 'inited');
   }
 
   public ngOnDestroy(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteTwoComponent', 'destroyed');
   }
 

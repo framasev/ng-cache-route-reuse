@@ -13,7 +13,7 @@ export class NgCacheRouteReuseStore {
   public readonly remove$: Subject<string | Type<any>>;
 
   constructor() {
-    if (instance) return instance;
+    if (instance) { return instance; }
 
     this.store = new Map();
     this.add$ = new Subject();

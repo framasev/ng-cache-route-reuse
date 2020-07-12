@@ -13,19 +13,23 @@ export class LazyRouteOneComponent implements OnInit, OnDestroy {
 
   @onAttach()
   public onAttach(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteOneComponent', 'attached');
   }
 
   @onDetach()
   public onDetach(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteOneComponent', 'detached');
   }
 
   public ngOnInit(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteOneComponent', 'inited');
   }
 
   public ngOnDestroy(): void {
+    // tslint:disable-next-line: no-console
     console.debug('LazyRouteOneComponent', 'destroyed');
   }
 
