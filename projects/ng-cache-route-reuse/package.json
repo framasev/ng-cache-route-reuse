@@ -13,7 +13,7 @@
     "route reuse strategy"
   ],
   "license": "MIT",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "peerDependencies": {
     "@angular/common": ">=2.0.0",
     "@angular/core": ">=2.0.0",
