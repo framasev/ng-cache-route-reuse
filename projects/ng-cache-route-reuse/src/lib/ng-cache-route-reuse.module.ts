@@ -12,11 +12,11 @@ import { NgCacheRouteReuseStrategy } from './ng-cache-route-reuse.strategy';
   providers: [
     {
       provide: NgCacheRouteReuseStoreService,
-      useFactory: () => NgCacheRouteReuseStoreService.getInstance()
+      useFactory: NgCacheRouteReuseStoreService.getInstance
     },
     {
       provide: NgCacheRouteReuseService,
-      useFactory: () => NgCacheRouteReuseService.getInstance()
+      useFactory: NgCacheRouteReuseService.getInstance
     },
     {
       provide: RouteReuseStrategy,
