@@ -8,7 +8,7 @@ import { AppRoutingModule, routes as AppRoutes } from 'projects/demo/src/app/app
 import { routes as LazyRouteOneRoutes } from 'projects/demo/src/app/lazy-route-one/lazy-route-one-routing.module';
 
 import { NgCacheRouteReuseModule } from './ng-cache-route-reuse.module';
-import { NgCacheRouteReuseStore } from './ng-cache-route-reuse-store';
+import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.service';
 
 import { By } from '@angular/platform-browser';
 
@@ -22,7 +22,7 @@ const testRouteReuse = (config: {
     let router: Router = null;
     let fixture: ComponentFixture<AppComponent> = null;
     let strategy: RouteReuseStrategy = null;
-    let store: NgCacheRouteReuseStore = null;
+    let store: NgCacheRouteReuseStoreService = null;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ const testRouteReuse = (config: {
       router = TestBed.inject(Router);
       fixture = TestBed.createComponent(AppComponent);
       strategy = TestBed.inject(RouteReuseStrategy);
-      store = new NgCacheRouteReuseStore();
+      store = NgCacheRouteReuseStoreService.getInstance();
 
       store.clear();
       router.initialNavigation();

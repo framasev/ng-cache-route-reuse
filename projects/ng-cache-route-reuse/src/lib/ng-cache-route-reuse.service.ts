@@ -1,39 +1,39 @@
 import { Injectable, Type } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
-import { NgCacheRouteReuseStore } from './ng-cache-route-reuse-store';
+import { NgCacheRouteReuseStoreService, StoreAction } from './ng-cache-route-reuse-store.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NgCacheRouteReuseService {
+  private static instance: NgCacheRouteReuseService = null;
 
-  private readonly cacheRouteReuseStore: NgCacheRouteReuseStore;
+  constructor(private storeService: NgCacheRouteReuseStoreService) {}
 
-  constructor() {
-    this.cacheRouteReuseStore = new NgCacheRouteReuseStore();
+  public static getInstance(): NgCacheRouteReuseService {
+    if (!NgCacheRouteReuseService.instance) {
+      const storeService = NgCacheRouteReuseStoreService.getInstance();
+      const instance = new NgCacheRouteReuseService(storeService);
+
+      NgCacheRouteReuseService.instance = instance;
+    }
+
+    return NgCacheRouteReuseService.instance;
   }
 
   public onAttach(component: string | Type<any>): Observable<string | Type<any>> {
-    return this.cacheRouteReuseStore.remove$.pipe(
-      filter(comp => comp === component),
-    );
+    return this.storeService.on(StoreAction.Delete, component);
   }
 
   public onDetach(component: string | Type<any>): Observable<string | Type<any>> {
-    return this.cacheRouteReuseStore.add$.pipe(
-      filter(comp => comp === component),
-    );
+    return this.storeService.on(StoreAction.Set, component);
   }
 
   public isAttached(component: string | Type<any>): boolean {
-    return !this.cacheRouteReuseStore.has(component);
+    return !this.storeService.has(component);
   }
 
   public isDetached(component: string | Type<any>): boolean {
-    return this.cacheRouteReuseStore.has(component);
+    return this.storeService.has(component);
   }
-
 }

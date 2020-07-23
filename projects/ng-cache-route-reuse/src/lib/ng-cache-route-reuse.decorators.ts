@@ -1,6 +1,4 @@
-import { NgCacheRouteReuseStore } from './ng-cache-route-reuse-store';
-
-import { filter } from 'rxjs/operators';
+import { NgCacheRouteReuseService } from './ng-cache-route-reuse.service';
 
 export function onAttach() {
   // tslint:disable-next-line: only-arrow-functions
@@ -8,11 +6,10 @@ export function onAttach() {
     target: any,
     propertyKey: string
   ) {
-    const cacheRouteReuseStore = new NgCacheRouteReuseStore();
+    const service = NgCacheRouteReuseService.getInstance();
+    const component = target.constructor;
 
-    cacheRouteReuseStore.remove$.pipe(
-      filter(component => component === target.constructor)
-    ).subscribe(() => target[propertyKey]());
+    service.onAttach(component).subscribe(() => target[propertyKey]());
   };
 }
 
@@ -22,10 +19,9 @@ export function onDetach() {
     target: any,
     propertyKey: string
   ) {
-    const cacheRouteReuseStore = new NgCacheRouteReuseStore();
+    const service = NgCacheRouteReuseService.getInstance();
+    const component = target.constructor;
 
-    cacheRouteReuseStore.add$.pipe(
-      filter(component => component === target.constructor)
-    ).subscribe(() => target[propertyKey]());
+    service.onDetach(component).subscribe(() => target[propertyKey]());
   };
 }
