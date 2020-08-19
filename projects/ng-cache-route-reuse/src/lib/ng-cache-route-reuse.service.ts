@@ -36,4 +36,7 @@ export class NgCacheRouteReuseService {
     return this.cacheRouteReuseStore.has(component);
   }
 
+  public clear(): void {
+    this.cacheRouteReuseStore.clear();
+  }
 }
