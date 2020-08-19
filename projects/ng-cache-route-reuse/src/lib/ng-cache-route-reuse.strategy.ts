@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import { RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
 
-import { NgCacheRouteReuseStore } from './ng-cache-route-reuse-store';
+import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.service';
 
 @Injectable()
 export class NgCacheRouteReuseStrategy implements RouteReuseStrategy {
-
-  private readonly cacheRouteReuseStore: NgCacheRouteReuseStore;
-
-  constructor() {
-    this.cacheRouteReuseStore = new NgCacheRouteReuseStore();
-  }
+  constructor(private storeService: NgCacheRouteReuseStoreService) {}
 
   private shouldBeReused(route: ActivatedRouteSnapshot): boolean {
     return !!route.data.reuse;
@@ -20,32 +15,25 @@ export class NgCacheRouteReuseStrategy implements RouteReuseStrategy {
     return this.shouldBeReused(route);
   }
 
-  public store(
-    route: ActivatedRouteSnapshot,
-    detachedRouteHandle: DetachedRouteHandle
-  ): void {
-    detachedRouteHandle
-      ? this.cacheRouteReuseStore.add(route.component, detachedRouteHandle)
-      : this.cacheRouteReuseStore.remove(route.component);
+  public store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
+    handle
+      ? this.storeService.set(route.component, handle)
+      : this.storeService.delete(route.component);
   }
 
   public shouldAttach(route: ActivatedRouteSnapshot): boolean {
     return this.shouldBeReused(route)
-      ? this.cacheRouteReuseStore.has(route.component)
+      ? this.storeService.has(route.component)
       : false;
   }
 
   public retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
     return this.shouldBeReused(route)
-      ? this.cacheRouteReuseStore.get(route.component)
+      ? this.storeService.get(route.component)
       : null;
   }
 
-  public shouldReuseRoute(
-    future: ActivatedRouteSnapshot,
-    curr: ActivatedRouteSnapshot
-  ): boolean {
-    return future.routeConfig === curr.routeConfig;
+  public shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot): boolean {
+    return future.routeConfig === current.routeConfig;
   }
-
 }
