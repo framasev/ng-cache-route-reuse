@@ -6,6 +6,7 @@ import {
   RouteReuseStrategy,
   Router,
 } from '@angular/router';
+import { NgCacheRouteReuseService } from 'ng-cache-route-reuse';
 import {
   routes as AppRoutes,
   AppRoutingModule,
@@ -31,6 +32,16 @@ const testRouteReuse = (config: {
       TestBed.configureTestingModule({
         imports: [AppRoutingModule, NgCacheRouteReuseModule],
         declarations: [AppComponent],
+        providers: [
+          {
+            provide: NgCacheRouteReuseStoreService,
+            useFactory: NgCacheRouteReuseStoreService.getInstance,
+          },
+          {
+            provide: NgCacheRouteReuseService,
+            useFactory: NgCacheRouteReuseService.getInstance,
+          },
+        ],
       });
 
       router = TestBed.inject(Router);
