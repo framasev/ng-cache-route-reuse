@@ -43,42 +43,25 @@ const routes: Routes = [
 
 You can use hooks for performing additional subscribe/unsubscribe functionality:
 
-### Use with Decorators
-
-```typescript
-import { onAttach, onDetach } from 'ng-cache-route-reuse';
-
-@Component({})
-export class HomeComponent {
-  @onAttach()
-  public onAttach(): void {
-    // your code...
-  }
-
-  @onDetach()
-  public onDetach(): void {
-    // your code...
-  }
-}
-```
-
-### Use with Service
-
 ```typescript
 import { NgCacheRouteReuseService } from 'ng-cache-route-reuse';
 
 @Component({})
 export class HomeComponent implements OnInit {
-  constructor(private cacheRouteReuse: NgCacheRouteReuseService) {}
+  constructor(private cacheRouteReuseService: NgCacheRouteReuseService) {}
 
   public ngOnInit(): void {
-    this.cacheRouteReuse.onAttach(HomeComponent).subscribe((component) => {
-      // your code...
-    });
+    this.cacheRouteReuseService
+      .onAttach(HomeComponent) // or any reuse route's component
+      .subscribe((component) => {
+        // code...
+      });
 
-    this.cacheRouteReuse.onDetach(HomeComponent).subscribe((component) => {
-      // your code...
-    });
+    this.cacheRouteReuseService
+      .onDetach(HomeComponent) // or any reuse route's component
+      .subscribe((component) => {
+        // code...
+      });
   }
 }
 ```
