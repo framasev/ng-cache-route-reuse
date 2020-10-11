@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  RouteReuseStrategy,
   ActivatedRouteSnapshot,
   DetachedRouteHandle,
+  RouteReuseStrategy,
 } from '@angular/router';
 
 import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.service';

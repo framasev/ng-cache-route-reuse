@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { onAttach, onDetach } from 'ng-cache-route-reuse';
 
 @Component({

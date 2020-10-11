@@ -1,24 +1,20 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import {
-  Router,
-  RouteReuseStrategy,
   ActivatedRoute,
   Route,
+  RouteReuseStrategy,
+  Router,
 } from '@angular/router';
-
-import { AppComponent } from 'projects/demo/src/app/app.component';
-
 import {
-  AppRoutingModule,
   routes as AppRoutes,
+  AppRoutingModule,
 } from 'projects/demo/src/app/app-routing.module';
+import { AppComponent } from 'projects/demo/src/app/app.component';
 import { routes as LazyRouteOneRoutes } from 'projects/demo/src/app/lazy-route-one/lazy-route-one-routing.module';
 
-import { NgCacheRouteReuseModule } from './ng-cache-route-reuse.module';
 import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.service';
-
-import { By } from '@angular/platform-browser';
+import { NgCacheRouteReuseModule } from './ng-cache-route-reuse.module';
 
 const testRouteReuse = (config: {
   route: Route;
