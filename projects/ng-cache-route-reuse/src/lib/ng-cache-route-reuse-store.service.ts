@@ -3,25 +3,33 @@ import { DetachedRouteHandle } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-export enum StoreAction {
+export enum StoreActionType {
   Set,
   Delete,
+  Clear,
 }
-export type StoreActionDef = {
-  type: StoreAction;
-  component: string | Type<any>;
-};
+
+export interface StoreAction {
+  type: StoreActionType;
+  component?: string | Type<any>;
+}
+
+export interface StoreActionOptions {
+  emitEvent?: boolean;
+}
 
 @Injectable()
-export class NgCacheRouteReuseStoreService extends Map<
-  string | Type<any>,
-  DetachedRouteHandle
-> {
+export class NgCacheRouteReuseStoreService {
   private static instance: NgCacheRouteReuseStoreService = null;
-  private readonly action$: Subject<StoreActionDef>;
+
+  private readonly detachedRouteHandles: Map<
+    string | Type<any>,
+    DetachedRouteHandle
+  >;
+  private readonly action$: Subject<StoreAction>;
 
   constructor() {
-    super();
+    this.detachedRouteHandles = new Map();
     this.action$ = new Subject();
   }
 
@@ -35,12 +43,15 @@ export class NgCacheRouteReuseStoreService extends Map<
     return NgCacheRouteReuseStoreService.instance;
   }
 
-  private dispatch(type: StoreAction, component: string | Type<any>): void {
+  private dispatch(
+    type: StoreActionType,
+    component: string | Type<any> = null
+  ): void {
     this.action$.next({ type, component });
   }
 
   public on(
-    type: StoreAction,
+    type: StoreActionType,
     component: string | Type<any>
   ): Observable<string | Type<any>> {
     return this.action$.pipe(
@@ -50,17 +61,44 @@ export class NgCacheRouteReuseStoreService extends Map<
     );
   }
 
-  public set(component: string | Type<any>, handle: DetachedRouteHandle): this {
-    super.set(component, handle);
-    this.dispatch(StoreAction.Set, component);
-    return this;
+  public set(
+    component: string | Type<any>,
+    handle: DetachedRouteHandle,
+    { emitEvent = true }: StoreActionOptions = {}
+  ): void {
+    this.detachedRouteHandles.set(component, handle);
+
+    if (emitEvent) {
+      this.dispatch(StoreActionType.Set, component);
+    }
   }
 
-  public delete(component: string | Type<any>): boolean {
-    const removed = super.delete(component);
-    if (removed) {
-      this.dispatch(StoreAction.Delete, component);
+  public get(component: string | Type<any>): DetachedRouteHandle {
+    return this.detachedRouteHandles.get(component);
+  }
+
+  public has(component: string | Type<any>): boolean {
+    return this.detachedRouteHandles.has(component);
+  }
+
+  public delete(
+    component: string | Type<any>,
+    { emitEvent = true }: StoreActionOptions = {}
+  ): boolean {
+    const deleted = this.detachedRouteHandles.delete(component);
+
+    if (emitEvent && deleted) {
+      this.dispatch(StoreActionType.Delete, component);
     }
-    return removed;
+
+    return deleted;
+  }
+
+  public clear({ emitEvent = true }: StoreActionOptions = {}): void {
+    this.detachedRouteHandles.clear();
+
+    if (emitEvent) {
+      this.dispatch(StoreActionType.Clear);
+    }
   }
 }
