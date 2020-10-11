@@ -3,11 +3,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-lazy-route-two',
   templateUrl: './lazy-route-two.component.html',
-  styleUrls: ['./lazy-route-two.component.scss']
+  styleUrls: ['./lazy-route-two.component.scss'],
 })
 export class LazyRouteTwoComponent implements OnInit, OnDestroy {
-
-  constructor() { }
+  constructor() {}
 
   public ngOnInit(): void {
     // tslint:disable-next-line: no-console
@@ -18,5 +17,4 @@ export class LazyRouteTwoComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: no-console
     console.debug('LazyRouteTwoComponent', 'destroyed');
   }
-
 }

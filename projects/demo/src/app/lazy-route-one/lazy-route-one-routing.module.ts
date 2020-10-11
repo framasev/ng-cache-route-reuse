@@ -3,19 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LazyRouteOneComponent } from './lazy-route-one.component';
 
-
 export const routes: Routes = [
   {
     path: '',
     component: LazyRouteOneComponent,
     data: {
-      reuse: true
-    }
-  }
+      reuse: true,
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LazyRouteOneRoutingModule { }
+export class LazyRouteOneRoutingModule {}

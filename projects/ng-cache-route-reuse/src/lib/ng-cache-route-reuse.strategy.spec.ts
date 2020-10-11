@@ -1,10 +1,18 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 
-import { Router, RouteReuseStrategy, ActivatedRoute, Route } from '@angular/router';
+import {
+  Router,
+  RouteReuseStrategy,
+  ActivatedRoute,
+  Route,
+} from '@angular/router';
 
 import { AppComponent } from 'projects/demo/src/app/app.component';
 
-import { AppRoutingModule, routes as AppRoutes } from 'projects/demo/src/app/app-routing.module';
+import {
+  AppRoutingModule,
+  routes as AppRoutes,
+} from 'projects/demo/src/app/app-routing.module';
 import { routes as LazyRouteOneRoutes } from 'projects/demo/src/app/lazy-route-one/lazy-route-one-routing.module';
 
 import { NgCacheRouteReuseModule } from './ng-cache-route-reuse.module';
@@ -12,11 +20,10 @@ import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.serv
 
 import { By } from '@angular/platform-browser';
 
-
 const testRouteReuse = (config: {
-  route: Route
-  routeUrl: string
-  urls: string[]
+  route: Route;
+  routeUrl: string;
+  urls: string[];
 }) => {
   describe(`route with url '${config.routeUrl}'`, () => {
     let router: Router = null;
@@ -27,7 +34,7 @@ const testRouteReuse = (config: {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [AppRoutingModule, NgCacheRouteReuseModule],
-        declarations: [AppComponent]
+        declarations: [AppComponent],
       });
 
       router = TestBed.inject(Router);
@@ -43,7 +50,7 @@ const testRouteReuse = (config: {
       expect(config.route.data.reuse).toBe(true);
     });
 
-    config.urls.forEach(url => {
+    config.urls.forEach((url) => {
       describe(`should be detached after '${config.routeUrl} -> ${url}' navigation`, async () => {
         let shouldDetachSpy: jasmine.Spy;
 
@@ -64,7 +71,7 @@ const testRouteReuse = (config: {
       });
     });
 
-    config.urls.forEach(url => {
+    config.urls.forEach((url) => {
       describe(`should be attached after '${config.routeUrl} -> ${url}' navigation`, () => {
         let shouldAttachSpy: jasmine.Spy;
         let startRoute: ActivatedRoute;
@@ -75,12 +82,16 @@ const testRouteReuse = (config: {
 
           await router.navigateByUrl(config.routeUrl);
 
-          startRoute = fixture.debugElement.query(By.directive(config.route.component)).injector.get(ActivatedRoute);
+          startRoute = fixture.debugElement
+            .query(By.directive(config.route.component))
+            .injector.get(ActivatedRoute);
 
           await router.navigateByUrl(url);
           await router.navigateByUrl(config.routeUrl);
 
-          endRoute = fixture.debugElement.query(By.directive(config.route.component)).injector.get(ActivatedRoute);
+          endRoute = fixture.debugElement
+            .query(By.directive(config.route.component))
+            .injector.get(ActivatedRoute);
         });
 
         it(`the store should not have the attached route`, () => {
@@ -103,12 +114,12 @@ describe('NgCacheRouteReuseStrategy', () => {
   testRouteReuse({
     route: AppRoutes[0],
     routeUrl: 'one',
-    urls: ['two', 'lazy-one', 'lazy-two']
+    urls: ['two', 'lazy-one', 'lazy-two'],
   });
 
   testRouteReuse({
     route: LazyRouteOneRoutes[0],
     routeUrl: 'lazy-one',
-    urls: ['one', 'two', 'lazy-two']
+    urls: ['one', 'two', 'lazy-two'],
   });
 });

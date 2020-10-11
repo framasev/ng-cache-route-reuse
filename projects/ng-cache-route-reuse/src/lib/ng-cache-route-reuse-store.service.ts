@@ -1,14 +1,22 @@
 import { Injectable, Type } from '@angular/core';
 import { DetachedRouteHandle } from '@angular/router';
-
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-export enum StoreAction { Set, Delete }
-export type StoreActionDef = { type: StoreAction, component: string | Type<any> };
+export enum StoreAction {
+  Set,
+  Delete,
+}
+export type StoreActionDef = {
+  type: StoreAction;
+  component: string | Type<any>;
+};
 
 @Injectable()
-export class NgCacheRouteReuseStoreService extends Map<string | Type<any>, DetachedRouteHandle> {
+export class NgCacheRouteReuseStoreService extends Map<
+  string | Type<any>,
+  DetachedRouteHandle
+> {
   private static instance: NgCacheRouteReuseStoreService = null;
   private readonly action$: Subject<StoreActionDef>;
 
@@ -31,11 +39,14 @@ export class NgCacheRouteReuseStoreService extends Map<string | Type<any>, Detac
     this.action$.next({ type, component });
   }
 
-  public on(type: StoreAction, component: string | Type<any>): Observable<string | Type<any>> {
+  public on(
+    type: StoreAction,
+    component: string | Type<any>
+  ): Observable<string | Type<any>> {
     return this.action$.pipe(
-      filter(action => action.type === type),
-      filter(action => action.component === component),
-      map(action => action.component)
+      filter((action) => action.type === type),
+      filter((action) => action.component === component),
+      map((action) => action.component)
     );
   }
 
@@ -47,7 +58,9 @@ export class NgCacheRouteReuseStoreService extends Map<string | Type<any>, Detac
 
   public delete(component: string | Type<any>): boolean {
     const removed = super.delete(component);
-    if (removed) { this.dispatch(StoreAction.Delete, component); }
+    if (removed) {
+      this.dispatch(StoreAction.Delete, component);
+    }
     return removed;
   }
 }

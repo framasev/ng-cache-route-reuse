@@ -5,23 +5,22 @@ import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.serv
 import { NgCacheRouteReuseService } from './ng-cache-route-reuse.service';
 import { NgCacheRouteReuseStrategy } from './ng-cache-route-reuse.strategy';
 
-
 @NgModule({
   declarations: [],
   imports: [],
   providers: [
     {
       provide: NgCacheRouteReuseStoreService,
-      useFactory: NgCacheRouteReuseStoreService.getInstance
+      useFactory: NgCacheRouteReuseStoreService.getInstance,
     },
     {
       provide: NgCacheRouteReuseService,
-      useFactory: NgCacheRouteReuseService.getInstance
+      useFactory: NgCacheRouteReuseService.getInstance,
     },
     {
       provide: RouteReuseStrategy,
-      useClass: NgCacheRouteReuseStrategy
+      useClass: NgCacheRouteReuseStrategy,
     },
-  ]
+  ],
 })
 export class NgCacheRouteReuseModule {}

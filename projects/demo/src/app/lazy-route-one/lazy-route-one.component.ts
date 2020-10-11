@@ -5,11 +5,10 @@ import { onAttach, onDetach } from 'ng-cache-route-reuse';
 @Component({
   selector: 'app-lazy-route-one',
   templateUrl: './lazy-route-one.component.html',
-  styleUrls: ['./lazy-route-one.component.scss']
+  styleUrls: ['./lazy-route-one.component.scss'],
 })
 export class LazyRouteOneComponent implements OnInit, OnDestroy {
-
-  constructor() { }
+  constructor() {}
 
   @onAttach()
   public onAttach(): void {
@@ -32,5 +31,4 @@ export class LazyRouteOneComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: no-console
     console.debug('LazyRouteOneComponent', 'destroyed');
   }
-
 }

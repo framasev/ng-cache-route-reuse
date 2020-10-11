@@ -10,16 +10,8 @@ import { RouteTwoComponent } from './route-two/route-two.component';
 import { NgCacheRouteReuseModule } from 'ng-cache-route-reuse';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RouteOneComponent,
-    RouteTwoComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgCacheRouteReuseModule
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, RouteOneComponent, RouteTwoComponent],
+  imports: [BrowserModule, AppRoutingModule, NgCacheRouteReuseModule],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

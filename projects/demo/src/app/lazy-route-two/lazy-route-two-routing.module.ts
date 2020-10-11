@@ -3,16 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LazyRouteTwoComponent } from './lazy-route-two.component';
 
-
 const routes: Routes = [
   {
     path: '',
-    component: LazyRouteTwoComponent
-  }
+    component: LazyRouteTwoComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LazyRouteTwoRoutingModule { }
+export class LazyRouteTwoRoutingModule {}

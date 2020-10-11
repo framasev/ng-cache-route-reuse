@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
+import {
+  RouteReuseStrategy,
+  ActivatedRouteSnapshot,
+  DetachedRouteHandle,
+} from '@angular/router';
 
 import { NgCacheRouteReuseStoreService } from './ng-cache-route-reuse-store.service';
 
@@ -15,7 +19,10 @@ export class NgCacheRouteReuseStrategy implements RouteReuseStrategy {
     return this.shouldBeReused(route);
   }
 
-  public store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
+  public store(
+    route: ActivatedRouteSnapshot,
+    handle: DetachedRouteHandle
+  ): void {
     handle
       ? this.storeService.set(route.component, handle)
       : this.storeService.delete(route.component);
@@ -33,7 +40,10 @@ export class NgCacheRouteReuseStrategy implements RouteReuseStrategy {
       : null;
   }
 
-  public shouldReuseRoute(future: ActivatedRouteSnapshot, current: ActivatedRouteSnapshot): boolean {
+  public shouldReuseRoute(
+    future: ActivatedRouteSnapshot,
+    current: ActivatedRouteSnapshot
+  ): boolean {
     return future.routeConfig === current.routeConfig;
   }
 }

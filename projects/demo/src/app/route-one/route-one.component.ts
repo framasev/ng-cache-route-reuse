@@ -5,11 +5,10 @@ import { onAttach, onDetach } from 'ng-cache-route-reuse';
 @Component({
   selector: 'app-route-one',
   templateUrl: './route-one.component.html',
-  styleUrls: ['./route-one.component.scss']
+  styleUrls: ['./route-one.component.scss'],
 })
 export class RouteOneComponent implements OnInit, OnDestroy {
-
-  constructor() { }
+  constructor() {}
 
   @onAttach()
   public onAttach(): void {
@@ -32,5 +31,4 @@ export class RouteOneComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: no-console
     console.debug('RouteOneComponent', 'destroyed');
   }
-
 }

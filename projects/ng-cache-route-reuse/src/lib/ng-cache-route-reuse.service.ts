@@ -2,7 +2,10 @@ import { Injectable, Type } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { NgCacheRouteReuseStoreService, StoreAction } from './ng-cache-route-reuse-store.service';
+import {
+  NgCacheRouteReuseStoreService,
+  StoreAction,
+} from './ng-cache-route-reuse-store.service';
 
 @Injectable()
 export class NgCacheRouteReuseService {
@@ -21,11 +24,15 @@ export class NgCacheRouteReuseService {
     return NgCacheRouteReuseService.instance;
   }
 
-  public onAttach(component: string | Type<any>): Observable<string | Type<any>> {
+  public onAttach(
+    component: string | Type<any>
+  ): Observable<string | Type<any>> {
     return this.storeService.on(StoreAction.Delete, component);
   }
 
-  public onDetach(component: string | Type<any>): Observable<string | Type<any>> {
+  public onDetach(
+    component: string | Type<any>
+  ): Observable<string | Type<any>> {
     return this.storeService.on(StoreAction.Set, component);
   }
 
