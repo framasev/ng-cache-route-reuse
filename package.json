@@ -23,7 +23,6 @@
     "publish": "ng build ng-cache-route-reuse --prod && cd dist/ng-cache-route-reuse && npm publish",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.5",
     "@angular/common": "~10.0.5",
