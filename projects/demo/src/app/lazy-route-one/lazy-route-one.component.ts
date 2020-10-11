@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { onAttach, onDetach } from 'ng-cache-route-reuse';
+import { NgCacheRouteReuseService } from 'ng-cache-route-reuse';
 
 @Component({
   selector: 'app-lazy-route-one',
@@ -7,18 +7,20 @@ import { onAttach, onDetach } from 'ng-cache-route-reuse';
   styleUrls: ['./lazy-route-one.component.scss'],
 })
 export class LazyRouteOneComponent implements OnInit, OnDestroy {
-  constructor() {}
+  constructor(private cacheRouteReuseService: NgCacheRouteReuseService) {
+    this.cacheRouteReuseService
+      .onAttach(LazyRouteOneComponent)
+      .subscribe(() => {
+        // tslint:disable-next-line: no-console
+        console.debug('LazyRouteOneComponent', 'attached');
+      });
 
-  @onAttach()
-  public onAttach(): void {
-    // tslint:disable-next-line: no-console
-    console.debug('LazyRouteOneComponent', 'attached');
-  }
-
-  @onDetach()
-  public onDetach(): void {
-    // tslint:disable-next-line: no-console
-    console.debug('LazyRouteOneComponent', 'detached');
+    this.cacheRouteReuseService
+      .onDetach(LazyRouteOneComponent)
+      .subscribe(() => {
+        // tslint:disable-next-line: no-console
+        console.debug('LazyRouteOneComponent', 'detached');
+      });
   }
 
   public ngOnInit(): void {

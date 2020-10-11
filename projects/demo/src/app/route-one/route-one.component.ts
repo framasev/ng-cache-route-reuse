@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { onAttach, onDetach } from 'ng-cache-route-reuse';
+import { NgCacheRouteReuseService } from 'ng-cache-route-reuse';
 
 @Component({
   selector: 'app-route-one',
@@ -7,18 +7,16 @@ import { onAttach, onDetach } from 'ng-cache-route-reuse';
   styleUrls: ['./route-one.component.scss'],
 })
 export class RouteOneComponent implements OnInit, OnDestroy {
-  constructor() {}
+  constructor(private cacheRouteReuseService: NgCacheRouteReuseService) {
+    this.cacheRouteReuseService.onAttach(RouteOneComponent).subscribe(() => {
+      // tslint:disable-next-line: no-console
+      console.debug('RouteOneComponent', 'attached');
+    });
 
-  @onAttach()
-  public onAttach(): void {
-    // tslint:disable-next-line: no-console
-    console.debug('RouteOneComponent', 'attached');
-  }
-
-  @onDetach()
-  public onDetach(): void {
-    // tslint:disable-next-line: no-console
-    console.debug('RouteOneComponent', 'detached');
+    this.cacheRouteReuseService.onDetach(RouteOneComponent).subscribe(() => {
+      // tslint:disable-next-line: no-console
+      console.debug('RouteOneComponent', 'detached');
+    });
   }
 
   public ngOnInit(): void {
