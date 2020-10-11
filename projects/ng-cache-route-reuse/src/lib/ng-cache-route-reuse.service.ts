@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import {
   NgCacheRouteReuseStoreService,
-  StoreAction,
+  StoreActionType,
 } from './ng-cache-route-reuse-store.service';
 
 /**
@@ -35,7 +35,7 @@ export class NgCacheRouteReuseService {
   public onAttach(
     component: string | Type<any>
   ): Observable<string | Type<any>> {
-    return this.storeService.on(StoreAction.Delete, component);
+    return this.storeService.on(StoreActionType.Delete, component);
   }
 
   /**
@@ -46,7 +46,7 @@ export class NgCacheRouteReuseService {
   public onDetach(
     component: string | Type<any>
   ): Observable<string | Type<any>> {
-    return this.storeService.on(StoreAction.Set, component);
+    return this.storeService.on(StoreActionType.Set, component);
   }
 
   /**
@@ -64,9 +64,16 @@ export class NgCacheRouteReuseService {
   }
 
   /**
-   * Delete all detached routes
+   * Delete a reuse route's component from cache
+   */
+  public delete(component: string | Type<any>): boolean {
+    return this.storeService.delete(component, { emitEvent: false });
+  }
+
+  /**
+   * Clear the reuse route components cache
    */
   public clear(): void {
-    this.storeService.clear();
+    return this.storeService.clear();
   }
 }
