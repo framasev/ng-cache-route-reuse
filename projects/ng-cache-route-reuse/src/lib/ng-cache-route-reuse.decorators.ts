@@ -1,7 +1,7 @@
 import { NgCacheRouteReuseService } from './ng-cache-route-reuse.service';
 
 /**
- * Decorator variant of `onAttach` route lifecycle hook
+ * Decorator variant of `onAttach` reuse route's component lifecycle hook
  * @deprecated from 0.0.7, may be removed in 0.0.8, use `NgCacheRouteReuseService` instead
  */
 export function onAttach() {
@@ -15,7 +15,7 @@ export function onAttach() {
 }
 
 /**
- * Decorator variant of `onAttach` route lifecycle hook
+ * Decorator variant of `onAttach` reuse route's component lifecycle hook
  * @deprecated from 0.0.7, may be removed in 0.0.8, use `NgCacheRouteReuseService` instead
  */
 export function onDetach() {
